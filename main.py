@@ -19,10 +19,6 @@ def get_user(user_id:int, request: Request):
     return {"user_id" : user_id}
 
 
-# @app.get("/users")
-# def get_users(limit: Optional[int] = None):
-#     return {"limit" : limit}
-
 
 @app.get("/users")
 def get_users(is_admin: bool, limit: int = 100):
