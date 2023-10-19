@@ -1,8 +1,18 @@
 import uvicorn
 from typing import Optional
 from fastapi import FastAPI, Request
+from pydantic import BaseModel, HttpUrl, EmailStr
 
 app = FastAPI()
+
+class User(BaseModel):
+    name: str
+    password: str
+    avatar_url: Optional[HttpUrl] = None
+    
+@app.post("/users")
+def create_user(user: User):
+    return user
 
 @app.get("/")
 def hello():
@@ -17,7 +27,6 @@ def get_user_me():
 def get_user(user_id:int, request: Request):
     print(request.path_params)
     return {"user_id" : user_id}
-
 
 
 @app.get("/users")
